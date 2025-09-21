@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Service - IT'aawun</title>
+<style>
+  body { margin:0; font-family:'Segoe UI',sans-serif; background:#f4f9ff; }
+  header { background:#00aaff; color:white; padding:15px 40px; display:flex; justify-content:space-between; align-items:center; }
+  header .logo { font-size:22px; font-weight:bold; cursor:pointer; }
+  .profile-container { position:relative; }
+  .profile-pic { width:40px; height:40px; border-radius:50%; cursor:pointer; border:2px solid white; }
+  .dropdown { display:none; position:absolute; right:0; top:50px; background:white; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.2); z-index:100; }
+  .dropdown a { display:block; padding:10px; text-decoration:none; color:#333; font-size:14px; }
+  .dropdown a:hover { background:#f0f0f0; }
+  .page-title { text-align:center; padding:20px; color:#00aaff; font-size:28px; font-weight:bold; }
+  .filters,.search-bar { text-align:center; margin-bottom:20px; }
+  .filters select,.search-bar input { padding:10px; font-size:16px; border-radius:8px; border:1px solid #ccc; }
+  .search-bar input{width:60%;}
+  .search-bar button { padding:12px 20px; border:none; border-radius:8px; background:#00aaff; color:white; font-size:16px; cursor:pointer; }
+  .search-bar button:hover { background:#0077aa; }
+  .service-list { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; padding:20px; }
+  .service-card { background:white; width:220px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); overflow:hidden; transition:.3s; cursor:pointer; }
+  .service-card:hover { transform:scale(1.05); }
+  .service-card img { width:100%; height:120px; object-fit:cover; }
+  .service-card .content { padding:15px; }
+  .service-card h3 { font-size:18px; margin:5px 0; color:#00aaff; }
+  .service-card p { font-size:14px; margin:5px 0; color:#555; }
+  .service-card span { font-weight:bold; color:#333; }
+  footer { background:#00aaff; color:white; text-align:center; padding:15px; margin-top:20px; }
+
+  /* Modal style */
+  #serviceModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:200; }
+  #serviceModal .modal-content { background:white; max-width:500px; margin:50px auto; padding:20px; border-radius:12px; position:relative; }
+  #serviceModal .close { position:absolute; top:10px; right:15px; font-size:22px; cursor:pointer; }
+  .rating span{font-size:24px; cursor:pointer; color:#ccc;}
+  .rating span.active{color:gold;}
+  .comments input{padding:8px; width:70%; border-radius:6px; border:1px solid #ccc;}
+  .comments button{padding:8px 15px; margin-left:5px; border:none; border-radius:6px; background:#00aaff; color:white; cursor:pointer;}
+  .comment-list{list-style:none; padding:0; margin-top:10px;}
+  .comment-list li{background:#f0f8ff; padding:8px; margin:5px 0; border-radius:8px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo" onclick="window.location.href='home.html'">IT'aawun</div>
+  <div class="profile-container">
+    <img src="https://via.placeholder.com/40" class="profile-pic" onclick="toggleDropdown()">
+    <div class="dropdown" id="dropdownMenu">
+      <a href="profile.html">My Profile</a>
+      <a href="#">Settings</a>
+      <a href="login.html">Logout</a>
+    </div>
+  </div>
+</header>
+
+<div class="page-title">Find Service</div>
+
+<div class="filters">
+  <select id="categoryFilter">
+    <option value="all">All Categories</option>
+    <option value="design">Design</option>
+    <option value="coding">Coding</option>
+    <option value="writing">Writing</option>
+    <option value="tutoring">Tutoring</option>
+    <option value="photography">Photography</option>
+  </select>
+  <select id="priceFilter">
+    <option value="all">All Prices</option>
+    <option value="under20">Under RM20</option>
+    <option value="20to50">RM20 - RM50</option>
+    <option value="above50">Above RM50</option>
+  </select>
+</div>
+
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="Search services...">
+  <button onclick="searchServices()">Search</button>
+</div>
+
+<div class="service-list">
+  <!-- Example services -->
+  <div class="service-card" data-category="writing" data-price="20" onclick="openModal('Assignment Help','Get help with your assignments.','RM20','student1@student.com')">
+    <img src="https://via.placeholder.com/220x120">
+    <div class="content"><h3>Assignment Help</h3><p>Get help with assignments.</p><span>RM20</span></div>
+  </div>
+
+  <div class="service-card" data-category="design" data-price="30" onclick="openModal('Logo Design','Professional logo design.','RM30','designer@student.com')">
+    <img src="https://via.placeholder.com/220x120">
+    <div class="content"><h3>Logo Design</h3><p>Professional logo design.</p><span>RM30</span></div>
+  </div>
+
+  <div class="service-card" data-category="coding" data-price="50" onclick="openModal('Website Coding','Build responsive website.','RM50','coder@student.com')">
+    <img src="https://via.placeholder.com/220x120">
+    <div class="content"><h3>Website Coding</h3><p>Build responsive website.</p><span>RM50</span></div>
+  </div>
+
+  <div class="service-card" data-category="tutoring" data-price="40" onclick="openModal('Math Tutoring','Private math tutor.','RM40','tutor@student.com')">
+    <img src="https://via.placeholder.com/220x120">
+    <div class="content"><h3>Math Tutoring</h3><p>Private math tutor.</p><span>RM40</span></div>
+  </div>
+
+  <div class="service-card" data-category="photography" data-price="60" onclick="openModal('Photography','Professional photo session.','RM60','photo@student.com')">
+    <img src="https://via.placeholder.com/220x120">
+    <div class="content"><h3>Photography</h3><p>Professional photo session.</p><span>RM60</span></div>
+  </div>
+
+  <!-- More services to allow scrolling -->
+  <div class="service-card" data-category="design" data-price="25" onclick="openModal('Poster Design','Creative poster for events.','RM25','designer2@student.com')">
+    <img src="https://via.placeholder.com/220x120">
+    <div class="content"><h3>Poster Design</h3><p>Creative poster for events.</p><span>RM25</span></div>
+  </div>
+
+  <div class="service-card" data-category="coding" data-price="70" onclick="openModal('Mobile App','Simple student app dev.','RM70','appdev@student.com')">
+    <img src="https://via.placeholder.com/220x120">
+    <div class="content"><h3>Mobile App</h3><p>Simple student app dev.</p><span>RM70</span></div>
+  </div>
+
+  <div class="service-card" data-category="writing" data-price="15" onclick="openModal('Essay Proofreading','Check grammar & format.','RM15','editor@student.com')">
+    <img src="https://via.placeholder.com/220x120">
+    <div class="content"><h3>Essay Proofreading</h3><p>Check grammar & format.</p><span>RM15</span></div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="serviceModal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">×</span>
+    <h2 id="modalTitle" style="color:#00aaff;"></h2>
+    <p id="modalDesc"></p>
+    <p><strong>Price:</strong> <span id="modalPrice"></span></p>
+    <p><strong>Contact:</strong> <span id="modalContact"></span></p>
+    <button onclick="orderService()">Order</button>
+
+    <div class="rating">
+      <p>Rate this service:</p>
+      <span onclick="setRating(1)">★</span>
+      <span onclick="setRating(2)">★</span>
+      <span onclick="setRating(3)">★</span>
+      <span onclick="setRating(4)">★</span>
+      <span onclick="setRating(5)">★</span>
+    </div>
+
+    <div class="comments">
+      <h3>Comments</h3>
+      <input type="text" id="commentInput" placeholder="Add a comment...">
+      <button onclick="addComment()">Post</button>
+      <ul class="comment-list" id="commentList"></ul>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 IT'aawun | Student Freelance Collaboration</p>
+</footer>
+
+<script>
+  // Profile dropdown
+  function toggleDropdown(){const m=document.getElementById("dropdownMenu"); m.style.display=(m.style.display==="block")?"none":"block";}
+  window.onclick=function(e){if(!e.target.matches('.profile-pic')){document.getElementById("dropdownMenu").style.display="none";}}
+
+  // Filter
+  const categoryFilter=document.getElementById("categoryFilter");
+  const priceFilter=document.getElementById("priceFilter");
+  const serviceCards=document.querySelectorAll(".service-card");
+  function filterServices(){
+    const c=categoryFilter.value, p=priceFilter.value;
+    serviceCards.forEach(card=>{
+      const cc=card.getAttribute("data-category"), cp=parseInt(card.getAttribute("data-price")); let show=true;
+      if(c!=="all"&&cc!==c)show=false;
+      if(p==="under20"&&cp>=20)show=false;
+      if(p==="20to50"&&(cp<20||cp>50))show=false;
+      if(p==="above50"&&cp<=50)show=false;
+      card.style.display=show?"block":"none";
+    });
+  }
+  categoryFilter.addEventListener("change",filterServices);
+  priceFilter.addEventListener("change",filterServices);
+
+  // Search
+  function searchServices(){
+    const q=document.getElementById("searchInput").value.toLowerCase();
+    serviceCards.forEach(card=>{
+      const name=card.querySelector("h3").innerText.toLowerCase();
+      card.style.display=name.includes(q)?"block":"none";
+    });
+  }
+
+  // Modal
+  function openModal(title,desc,price,contact){
+    document.getElementById("modalTitle").innerText=title;
+    document.getElementById("modalDesc").innerText=desc;
+    document.getElementById("modalPrice").innerText=price;
+    document.getElementById("modalContact").innerText=contact;
+    document.getElementById("serviceModal").style.display="block";
+  }
+
+  function closeModal(){
+    document.getElementById("serviceModal").style.display="none";
+    document.getElementById("commentList").innerHTML="";
+    document.getElementById("commentInput").value="";
+    document.querySelectorAll(".rating span").forEach(s=>s.classList.remove("active"));
+  }
+
+  function orderService(){alert("You have ordered this service!");}
+
+  function setRating(r){
+    const stars=document.querySelectorAll(".rating span");
+    stars.forEach((s,i)=>s.classList.toggle("active",i<r));
+  }
+
+  function addComment(){
+    const input=document.getElementById("commentInput");
+    if(input.value.trim()!==""){
+      const li=document.createElement("li");
+      li.innerText=input.value;
+      document.getElementById("commentList").appendChild(li);
+      input.value="";
+    }
+  }
+</script>
+
+</body>
+</html>
