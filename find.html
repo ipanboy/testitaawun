@@ -3,42 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Find Service - IT'aawun</title>
+<title>Services Offered - IT'aawun</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-  body { margin:0; font-family:'Segoe UI',sans-serif; background:#f4f9ff; }
-  header { background:#00aaff; color:white; padding:15px 40px; display:flex; justify-content:space-between; align-items:center; }
+  /* Body & Gradient Background */
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(-45deg, #001f3f, #D3D3D3, #FFFFFF, #00aaff);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #333;
+  }
+
+  @keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+
+  /* Header */
+  header {
+    background: rgba(0,0,0,0.2);
+    color: white;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   header .logo { font-size:22px; font-weight:bold; cursor:pointer; }
-  .profile-container { position:relative; }
+
+  .profile-container { position: relative; }
   .profile-pic { width:40px; height:40px; border-radius:50%; cursor:pointer; border:2px solid white; }
-  .dropdown { display:none; position:absolute; right:0; top:50px; background:white; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.2); z-index:100; }
+  .dropdown {
+    display:none; position:absolute; right:0; top:50px;
+    background:white; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.2); z-index:100;
+  }
   .dropdown a { display:block; padding:10px; text-decoration:none; color:#333; font-size:14px; }
   .dropdown a:hover { background:#f0f0f0; }
-  .page-title { text-align:center; padding:20px; color:#00aaff; font-size:28px; font-weight:bold; }
-  .filters,.search-bar { text-align:center; margin-bottom:20px; }
-  .filters select,.search-bar input { padding:10px; font-size:16px; border-radius:8px; border:1px solid #ccc; }
-  .search-bar input{width:60%;}
-  .search-bar button { padding:12px 20px; border:none; border-radius:8px; background:#00aaff; color:white; font-size:16px; cursor:pointer; }
-  .search-bar button:hover { background:#0077aa; }
+
+  .page-title { text-align:center; padding:20px; color:#001f3f; font-size:28px; font-weight:bold; text-shadow:1px 1px 2px rgba(255,255,255,0.7); }
+
+  /* Filters & Search */
+  .filters, .search-bar { text-align:center; margin-bottom:20px; }
+  .filters select, .search-bar input { padding:10px; font-size:16px; border-radius:8px; border:1px solid #ccc; }
+  .search-bar input { width:60%; }
+  .search-bar button {
+    padding:12px 20px; border:none; border-radius:8px; background:#001f3f; color:white; font-size:16px; cursor:pointer;
+  }
+  .search-bar button:hover { background:#004f80; }
+
+  /* Services Cards */
   .service-list { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; padding:20px; }
-  .service-card { background:white; width:220px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); overflow:hidden; transition:.3s; cursor:pointer; }
+  .service-card {
+    background: rgba(255,255,255,0.95);
+    width:220px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    overflow:hidden; transition:.3s; display:flex; flex-direction:column;
+  }
   .service-card:hover { transform:scale(1.05); }
   .service-card img { width:100%; height:120px; object-fit:cover; }
-  .service-card .content { padding:15px; }
-  .service-card h3 { font-size:18px; margin:5px 0; color:#00aaff; }
-  .service-card p { font-size:14px; margin:5px 0; color:#555; }
+  .service-card .content { padding:15px; display:flex; flex-direction:column; flex:1; }
+  .service-card h3 { font-size:18px; margin:5px 0; color:#001f3f; }
+  .service-card p.desc { font-size:14px; margin:5px 0; color:#555; overflow:hidden; max-height:40px; transition:max-height 0.3s; }
+  .service-card p.desc.expanded { max-height:200px; }
+  .service-card .moreBtn { background:none; border:none; color:grey; font-weight:bold; cursor:pointer; padding:0; margin:5px 0; text-align:left; }
   .service-card span { font-weight:bold; color:#333; }
-  footer { background:#00aaff; color:white; text-align:center; padding:15px; margin-top:20px; }
+  .service-card button.orderBtn {
+    margin-top:auto; padding:10px 15px; border:none; border-radius:6px; background:#001f3f; color:white; cursor:pointer;
+    width:100%; font-weight:bold; font-size:15px; transition:.3s;
+  }
+  .service-card button.orderBtn:hover { background:#004f80; }
 
-  /* Modal style */
+  /* Modal */
   #serviceModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:200; }
-  #serviceModal .modal-content { background:white; max-width:500px; margin:50px auto; padding:20px; border-radius:12px; position:relative; }
-  #serviceModal .close { position:absolute; top:10px; right:15px; font-size:22px; cursor:pointer; }
-  .rating span{font-size:24px; cursor:pointer; color:#ccc;}
-  .rating span.active{color:gold;}
-  .comments input{padding:8px; width:70%; border-radius:6px; border:1px solid #ccc;}
-  .comments button{padding:8px 15px; margin-left:5px; border:none; border-radius:6px; background:#00aaff; color:white; cursor:pointer;}
-  .comment-list{list-style:none; padding:0; margin-top:10px;}
-  .comment-list li{background:#f0f8ff; padding:8px; margin:5px 0; border-radius:8px;}
+  #serviceModal .modal-content {
+    background:white; max-width:500px; margin:50px auto; padding:25px; border-radius:12px; position:relative; text-align:center;
+  }
+  #serviceModal .close { position:absolute; top:10px; right:15px; font-size:28px; cursor:pointer; }
+  #serviceModal .contact-btn {
+    padding:12px 20px; margin:10px 5px; border:none; border-radius:8px; color:white; font-size:16px; cursor:pointer;
+    font-weight:bold; display:inline-flex; align-items:center; gap:8px; transition:.3s;
+  }
+  #emailBtn { background:#ff6b6b; } #emailBtn:hover { background:#ff4c4c; }
+  #whatsappBtn { background:#25d366; } #whatsappBtn:hover { background:#1ebe57; }
+  #telegramBtn { background:#0088cc; } #telegramBtn:hover { background:#0077b3; }
+
+  footer { background: rgba(0,0,0,0.2); color:white; text-align:center; padding:15px; margin-top:20px; }
+
+  /* Responsive */
+  @media(max-width:600px){
+    .search-bar input { width:80%; }
+    .service-list { gap:15px; justify-content:center; }
+  }
 </style>
 </head>
 <body>
@@ -46,16 +106,16 @@
 <header>
   <div class="logo" onclick="window.location.href='home.html'">IT'aawun</div>
   <div class="profile-container">
-    <img src="https://via.placeholder.com/40" class="profile-pic" onclick="toggleDropdown()">
+    <img src="ipey.jpeg" class="profile-pic" onclick="toggleDropdown()">
     <div class="dropdown" id="dropdownMenu">
       <a href="profile.html">My Profile</a>
       <a href="#">Settings</a>
-      <a href="login.html">Logout</a>
+      <a href="index.html">Logout</a>
     </div>
   </div>
 </header>
 
-<div class="page-title">Find Service</div>
+<div class="page-title">Services Offered</div>
 
 <div class="filters">
   <select id="categoryFilter">
@@ -80,73 +140,162 @@
 </div>
 
 <div class="service-list">
-  <!-- Example services -->
-  <div class="service-card" data-category="writing" data-price="20" onclick="openModal('Assignment Help','Get help with your assignments.','RM20','student1@student.com')">
+  <!-- 1 -->
+  <div class="service-card" data-category="writing" data-price="20">
     <img src="https://via.placeholder.com/220x120">
-    <div class="content"><h3>Assignment Help</h3><p>Get help with assignments.</p><span>RM20</span></div>
+    <div class="content">
+      <h3>Assignment Help</h3>
+      <p class="desc">Comprehensive help with assignments, including research, writing, and formatting to ensure high-quality results for students of all levels.</p>
+      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
+      <span>RM20</span>
+      <button class="orderBtn" onclick="openModal('Assignment Help','Comprehensive help with assignments.','RM20','student1@student.com','student1telegram','60123456789')">Order</button>
+    </div>
   </div>
 
-  <div class="service-card" data-category="design" data-price="30" onclick="openModal('Logo Design','Professional logo design.','RM30','designer@student.com')">
+  <!-- 2 -->
+  <div class="service-card" data-category="design" data-price="30">
     <img src="https://via.placeholder.com/220x120">
-    <div class="content"><h3>Logo Design</h3><p>Professional logo design.</p><span>RM30</span></div>
+    <div class="content">
+      <h3>Logo Design</h3>
+      <p class="desc">Professional logo design for your brand with unlimited revisions to perfectly match your vision and branding requirements.</p>
+      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
+      <span>RM30</span>
+      <button class="orderBtn" onclick="openModal('Logo Design','Professional logo design.','RM30','designer@student.com','designertelegram','60111222333')">Order</button>
+    </div>
   </div>
 
-  <div class="service-card" data-category="coding" data-price="50" onclick="openModal('Website Coding','Build responsive website.','RM50','coder@student.com')">
+  <!-- 3 -->
+  <div class="service-card" data-category="coding" data-price="50">
     <img src="https://via.placeholder.com/220x120">
-    <div class="content"><h3>Website Coding</h3><p>Build responsive website.</p><span>RM50</span></div>
+    <div class="content">
+      <h3>Website Coding</h3>
+      <p class="desc">Build responsive websites using HTML, CSS, JavaScript, and modern frameworks with attention to UX/UI design.</p>
+      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
+      <span>RM50</span>
+      <button class="orderBtn" onclick="openModal('Website Coding','Build responsive websites.','RM50','coder@student.com','codertelegram','60112223344')">Order</button>
+    </div>
   </div>
 
-  <div class="service-card" data-category="tutoring" data-price="40" onclick="openModal('Math Tutoring','Private math tutor.','RM40','tutor@student.com')">
+  <!-- 4 -->
+  <div class="service-card" data-category="tutoring" data-price="40">
     <img src="https://via.placeholder.com/220x120">
-    <div class="content"><h3>Math Tutoring</h3><p>Private math tutor.</p><span>RM40</span></div>
+    <div class="content">
+      <h3>Math Tutoring</h3>
+      <p class="desc">Private math tutor covering algebra, calculus, and geometry with problem-solving strategies for all levels.</p>
+      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
+      <span>RM40</span>
+      <button class="orderBtn" onclick="openModal('Math Tutoring','Private math tutor.','RM40','tutor@student.com','tutortg','60112224455')">Order</button>
+    </div>
   </div>
 
-  <div class="service-card" data-category="photography" data-price="60" onclick="openModal('Photography','Professional photo session.','RM60','photo@student.com')">
+  <!-- 5 -->
+  <div class="service-card" data-category="photography" data-price="60">
     <img src="https://via.placeholder.com/220x120">
-    <div class="content"><h3>Photography</h3><p>Professional photo session.</p><span>RM60</span></div>
+    <div class="content">
+      <h3>Photography</h3>
+      <p class="desc">Professional photo sessions for portraits, events, or products with editing and retouching options.</p>
+      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
+      <span>RM60</span>
+      <button class="orderBtn" onclick="openModal('Photography','Professional photography.','RM60','photo@student.com','phototelegram','60119998877')">Order</button>
+    </div>
   </div>
 
-  <!-- More services to allow scrolling -->
-  <div class="service-card" data-category="design" data-price="25" onclick="openModal('Poster Design','Creative poster for events.','RM25','designer2@student.com')">
+  <!-- 6 -->
+  <div class="service-card" data-category="design" data-price="25">
     <img src="https://via.placeholder.com/220x120">
-    <div class="content"><h3>Poster Design</h3><p>Creative poster for events.</p><span>RM25</span></div>
+    <div class="content">
+      <h3>Poster Design</h3>
+      <p class="desc">Creative poster design for events, promotions, or campaigns with customizable templates and modern graphics.</p>
+      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
+      <span>RM25</span>
+      <button class="orderBtn" onclick="openModal('Poster Design','Creative poster design.','RM25','designer2@student.com','designer2telegram','60113334455')">Order</button>
+    </div>
   </div>
 
-  <div class="service-card" data-category="coding" data-price="70" onclick="openModal('Mobile App','Simple student app dev.','RM70','appdev@student.com')">
+  <!-- 7 -->
+  <div class="service-card" data-category="coding" data-price="70">
     <img src="https://via.placeholder.com/220x120">
-    <div class="content"><h3>Mobile App</h3><p>Simple student app dev.</p><span>RM70</span></div>
+    <div class="content">
+      <h3>Mobile App</h3>
+      <p class="desc">Develop simple mobile applications for Android and iOS using modern frameworks and tools, including deployment support.</p>
+      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
+      <span>RM70</span>
+      <button class="orderBtn" onclick="openModal('Mobile App','Develop mobile apps.','RM70','appdev@student.com','apptelegram','60115556677')">Order</button>
+    </div>
   </div>
 
-  <div class="service-card" data-category="writing" data-price="15" onclick="openModal('Essay Proofreading','Check grammar & format.','RM15','editor@student.com')">
+  <!-- 8 -->
+  <div class="service-card" data-category="writing" data-price="15">
     <img src="https://via.placeholder.com/220x120">
-    <div class="content"><h3>Essay Proofreading</h3><p>Check grammar & format.</p><span>RM15</span></div>
+    <div class="content">
+      <h3>Essay Proofreading</h3>
+      <p class="desc">Check grammar, spelling, and formatting for essays, reports, or research papers to ensure professional quality work.</p>
+      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
+      <span>RM15</span>
+      <button class="orderBtn" onclick="openModal('Essay Proofreading','Proofread essays.','RM15','editor@student.com','editortelegram','60114445566')">Order</button>
+    </div>
   </div>
+
+  <!-- 9 -->
+  <div class="service-card" data-category="tutoring" data-price="35">
+    <img src="https://via.placeholder.com/220x120">
+    <div class="content">
+      <h3>Physics Tutoring</h3>
+      <p class="desc">One-on-one physics tutoring for high school and college students, covering mechanics, electricity, and waves with practice problems.</p>
+      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
+      <span>RM35</span>
+      <button class="orderBtn" onclick="openModal('Physics Tutoring','Private physics tutoring.','RM35','physictutor@student.com','physictg','60116667788')">Order</button>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="service-card" data-category="design" data-price="45">
+    <img src="https://via.placeholder.com/220x120">
+    <div class="content">
+      <h3>Brochure Design</h3>
+      <p class="desc">Design eye-catching brochures for marketing, business, or events with professional layouts and vibrant visuals.</p>
+      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
+      <span>RM45</span>
+      <button class="orderBtn" onclick="openModal('Brochure Design','Professional brochure design.','RM45','designer3@student.com','designertg','60117778899')">Order</button>
+    </div>
+  </div>
+
+  <!-- 11 -->
+  <div class="service-card" data-category="coding" data-price="55">
+    <img src="https://via.placeholder.com/220x120">
+    <div class="content">
+      <h3>Database Setup</h3>
+      <p class="desc">Set up MySQL, PostgreSQL, or MongoDB databases for web applications with secure configuration and optimization.</p>
+      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
+      <span>RM55</span>
+      <button class="orderBtn" onclick="openModal('Database Setup','Setup database.','RM55','dbadmin@student.com','dbtelegram','60118889900')">Order</button>
+    </div>
+  </div>
+
+  <!-- 12 -->
+  <div class="service-card" data-category="photography" data-price="65">
+    <img src="https://via.placeholder.com/220x120">
+    <div class="content">
+      <h3>Event Photography</h3>
+      <p class="desc">Capture special moments at events, parties, and ceremonies with professional quality photos and optional editing services.</p>
+      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
+      <span>RM65</span>
+      <button class="orderBtn" onclick="openModal('Event Photography','Event photography.','RM65','eventphoto@student.com','eventtg','60119990011')">Order</button>
+    </div>
+  </div>
+
 </div>
 
-<!-- Modal -->
 <div id="serviceModal">
   <div class="modal-content">
     <span class="close" onclick="closeModal()">×</span>
-    <h2 id="modalTitle" style="color:#00aaff;"></h2>
+    <h2 id="modalTitle" style="color:#001f3f;"></h2>
     <p id="modalDesc"></p>
     <p><strong>Price:</strong> <span id="modalPrice"></span></p>
-    <p><strong>Contact:</strong> <span id="modalContact"></span></p>
-    <button onclick="orderService()">Order</button>
-
-    <div class="rating">
-      <p>Rate this service:</p>
-      <span onclick="setRating(1)">★</span>
-      <span onclick="setRating(2)">★</span>
-      <span onclick="setRating(3)">★</span>
-      <span onclick="setRating(4)">★</span>
-      <span onclick="setRating(5)">★</span>
-    </div>
-
-    <div class="comments">
-      <h3>Comments</h3>
-      <input type="text" id="commentInput" placeholder="Add a comment...">
-      <button onclick="addComment()">Post</button>
-      <ul class="comment-list" id="commentList"></ul>
+    <div>
+      <button id="emailBtn" class="contact-btn"><i class="fa-solid fa-envelope"></i>Email</button>
+      <button id="whatsappBtn" class="contact-btn"><i class="fa-brands fa-whatsapp"></i>WhatsApp</button>
+      <button id="telegramBtn" class="contact-btn"><i class="fa-brands fa-telegram"></i>Telegram</button>
     </div>
   </div>
 </div>
@@ -156,69 +305,56 @@
 </footer>
 
 <script>
-  // Profile dropdown
-  function toggleDropdown(){const m=document.getElementById("dropdownMenu"); m.style.display=(m.style.display==="block")?"none":"block";}
-  window.onclick=function(e){if(!e.target.matches('.profile-pic')){document.getElementById("dropdownMenu").style.display="none";}}
+function toggleDropdown(){
+  const m=document.getElementById("dropdownMenu");
+  m.style.display=(m.style.display==="block")?"none":"block";
+}
+window.onclick=function(e){
+  if(!e.target.matches('.profile-pic')){ document.getElementById("dropdownMenu").style.display="none"; }
+}
 
-  // Filter
-  const categoryFilter=document.getElementById("categoryFilter");
-  const priceFilter=document.getElementById("priceFilter");
-  const serviceCards=document.querySelectorAll(".service-card");
-  function filterServices(){
-    const c=categoryFilter.value, p=priceFilter.value;
-    serviceCards.forEach(card=>{
-      const cc=card.getAttribute("data-category"), cp=parseInt(card.getAttribute("data-price")); let show=true;
-      if(c!=="all"&&cc!==c)show=false;
-      if(p==="under20"&&cp>=20)show=false;
-      if(p==="20to50"&&(cp<20||cp>50))show=false;
-      if(p==="above50"&&cp<=50)show=false;
-      card.style.display=show?"block":"none";
-    });
-  }
-  categoryFilter.addEventListener("change",filterServices);
-  priceFilter.addEventListener("change",filterServices);
+const categoryFilter=document.getElementById("categoryFilter");
+const priceFilter=document.getElementById("priceFilter");
+const serviceCards=document.querySelectorAll(".service-card");
+function filterServices(){
+  const c=categoryFilter.value, p=priceFilter.value;
+  serviceCards.forEach(card=>{
+    const cc=card.getAttribute("data-category"), cp=parseInt(card.getAttribute("data-price"));
+    let show=true;
+    if(c!=="all"&&cc!==c) show=false;
+    if(p==="under20"&&cp>=20) show=false;
+    if(p==="20to50"&&(cp<20||cp>50)) show=false;
+    if(p==="above50"&&cp<=50) show=false;
+    card.style.display=show?"block":"none";
+  });
+}
+categoryFilter.addEventListener("change",filterServices);
+priceFilter.addEventListener("change",filterServices);
 
-  // Search
-  function searchServices(){
-    const q=document.getElementById("searchInput").value.toLowerCase();
-    serviceCards.forEach(card=>{
-      const name=card.querySelector("h3").innerText.toLowerCase();
-      card.style.display=name.includes(q)?"block":"none";
-    });
-  }
+function searchServices(){
+  const q=document.getElementById("searchInput").value.toLowerCase();
+  serviceCards.forEach(card=>{
+    const name=card.querySelector("h3").innerText.toLowerCase();
+    card.style.display=name.includes(q)?"block":"none";
+  });
+}
 
-  // Modal
-  function openModal(title,desc,price,contact){
-    document.getElementById("modalTitle").innerText=title;
-    document.getElementById("modalDesc").innerText=desc;
-    document.getElementById("modalPrice").innerText=price;
-    document.getElementById("modalContact").innerText=contact;
-    document.getElementById("serviceModal").style.display="block";
-  }
+function toggleDesc(btn){
+  const desc=btn.previousElementSibling;
+  desc.classList.toggle("expanded");
+  btn.innerText=desc.classList.contains("expanded")?"Less":"More";
+}
 
-  function closeModal(){
-    document.getElementById("serviceModal").style.display="none";
-    document.getElementById("commentList").innerHTML="";
-    document.getElementById("commentInput").value="";
-    document.querySelectorAll(".rating span").forEach(s=>s.classList.remove("active"));
-  }
-
-  function orderService(){alert("You have ordered this service!");}
-
-  function setRating(r){
-    const stars=document.querySelectorAll(".rating span");
-    stars.forEach((s,i)=>s.classList.toggle("active",i<r));
-  }
-
-  function addComment(){
-    const input=document.getElementById("commentInput");
-    if(input.value.trim()!==""){
-      const li=document.createElement("li");
-      li.innerText=input.value;
-      document.getElementById("commentList").appendChild(li);
-      input.value="";
-    }
-  }
+function openModal(title,desc,price,email,telegram,whatsapp){
+  document.getElementById("modalTitle").innerText=title;
+  document.getElementById("modalDesc").innerText=desc;
+  document.getElementById("modalPrice").innerText=price;
+  document.getElementById("emailBtn").onclick = function(){ window.location.href=`mailto:${email}`; }
+  document.getElementById("telegramBtn").onclick = function(){ window.open(`https://t.me/${telegram}`,'_blank'); }
+  document.getElementById("whatsappBtn").onclick = function(){ window.open(`https://wa.me/${whatsapp}`,'_blank'); }
+  document.getElementById("serviceModal").style.display="block";
+}
+function closeModal(){ document.getElementById("serviceModal").style.display="none"; }
 </script>
 
 </body>

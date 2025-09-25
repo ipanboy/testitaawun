@@ -5,31 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IT'aawun - Home</title>
   <style>
+    /* Body & Gradient Animation */
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #87CEFA, #00aaff);
-      color: #333;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      color: #fff;
+      background: linear-gradient(-45deg, #001f3f, #D3D3D3, #FFFFFF, #00aaff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
     }
 
     /* Header */
     header {
-      background: #00aaff;
+      background: rgba(0, 0, 0, 0.2);
       color: white;
-      padding: 15px 40px;
+      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: relative;
+      flex-wrap: wrap;
     }
 
     header .logo {
       font-size: 24px;
       font-weight: bold;
       text-decoration: none;
+      cursor: pointer;
     }
 
     nav a {
@@ -47,6 +57,7 @@
     .profile-container {
       position: relative;
       display: inline-block;
+      margin-top: 8px;
     }
 
     .profile-pic {
@@ -90,37 +101,44 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      color: white;
       padding: 50px 20px;
     }
 
     .hero h1 {
       font-size: 42px;
       margin-bottom: 20px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+      color: #333;
     }
 
     .hero p {
       font-size: 18px;
       margin-bottom: 40px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      color: #333;
     }
 
     .buttons {
       display: flex;
-      gap: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
     }
 
     .buttons a {
       text-decoration: none;
-      padding: 15px 40px;
-      font-size: 18px;
+      padding: 15px 30px;
+      font-size: 16px;
       font-weight: bold;
       border-radius: 10px;
       transition: 0.3s;
+      min-width: 160px;
+      text-align: center;
     }
 
     .find-btn {
-      background: white;
-      color: #00aaff;
+      background: rgba(255,255,255,0.9);
+      color: #001f3f;
     }
 
     .find-btn:hover {
@@ -136,12 +154,29 @@
       background: #003a60;
     }
 
+    .needed-btn {
+      background: #00aaff;
+      color: white;
+    }
+
+    .needed-btn:hover {
+      background: #0077aa;
+    }
+
     /* Footer */
     footer {
-      background: #00aaff;
+      background: rgba(0,0,0,0.2);
       color: white;
       text-align: center;
       padding: 15px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 28px; }
+      .hero p { font-size: 16px; }
+      header { flex-direction: column; align-items: flex-start; }
+      .profile-container { align-self: flex-end; }
     }
   </style>
 </head>
@@ -149,30 +184,30 @@
 
   <!-- Header -->
   <header>
-     <div class="logo" onclick="window.location.href='home.html'">IT'aawun</div>
-    
+    <div class="logo" onclick="window.location.href='home.html'">IT'aawun</div>
 
     <!-- Profile Picture -->
     <div class="profile-container">
-      <img src="download.jpg" alt="Profile" class="profile-pic" onclick="toggleDropdown()">
+      <img src="ipey.jpeg" alt="Profile" class="profile-pic" onclick="toggleDropdown()">
       <div class="dropdown" id="dropdownMenu">
         <a href="profile.html">My Profile</a>
         <a href="#">Settings</a>
-        <a href="login.html">Logout</a>
+        <a href="index.html">Logout</a>
       </div>
     </div>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
-    <h1>Selamat Datang ke IT'aawun</h1>
-    <p>Platform freelance khas untuk student Malaysia</p>
+    <h1>Welcome to IT'aawun</h1>
+    <p>A freelance platform specifically for CFS IIUM students</p>
     <div class="buttons">
-      <a href="find.html" class="find-btn">Find Service</a>
+      <a href="find.html" class="find-btn">Service Offered</a>
+      <a href="needed.html" class="needed-btn">Service Needed</a>
       <a href="create.html" class="create-btn">Create Service</a>
     </div>
   </section>
-
+  
   <!-- Footer -->
   <footer>
     <p>© 2025 IT'aawun | Student Freelance Collaboration</p>
@@ -188,7 +223,7 @@
     window.onclick = function(event) {
       if (!event.target.matches('.profile-pic')) {
         const menu = document.getElementById("dropdownMenu");
-        if (menu.style.display === "block") {
+        if (menu && menu.style.display === "block") {
           menu.style.display = "none";
         }
       }

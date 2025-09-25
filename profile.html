@@ -8,14 +8,23 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #87CEFA, #00aaff);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      /* Animated Gradient Background */
+      background: linear-gradient(-45deg, #001f3f, #D3D3D3, #FFFFFF, #00aaff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     header {
-      background: #00aaff;
+      background: rgba(0,0,0,0.2);
       color: white;
       padding: 15px 40px;
       display: flex;
@@ -29,39 +38,33 @@
       cursor: pointer;
     }
 
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
     /* Profile Section */
     .profile-card {
-      background: white;
+      background: rgba(255,255,255,0.95);
       max-width: 500px;
       margin: 50px auto;
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0px 5px 12px rgba(0,0,0,0.2);
+      box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
       text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-5px);
     }
 
     .profile-card img {
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      border: 3px solid #00aaff;
+      border: 3px solid #001f3f;
       margin-bottom: 15px;
     }
 
     .profile-card h2 {
       margin: 10px 0;
-      color: #333;
+      color: #001f3f;
     }
 
     .info {
@@ -75,14 +78,14 @@
     }
 
     .info strong {
-      color: #00aaff;
+      color: #001f3f;
     }
 
     /* Logout Button */
     .logout-btn {
       margin-top: 25px;
       padding: 10px 20px;
-      background: #00aaff;
+      background: #001f3f;
       color: white;
       border: none;
       border-radius: 8px;
@@ -92,16 +95,22 @@
     }
 
     .logout-btn:hover {
-      background: #0077aa;
+      background: #004f80;
     }
 
     /* Footer */
     footer {
       margin-top: auto;
-      background: #00aaff;
+      background: rgba(0,0,0,0.2);
       color: white;
       text-align: center;
       padding: 15px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .profile-card { margin: 30px 20px; padding: 20px; }
+      .profile-card img { width: 100px; height: 100px; }
     }
   </style>
 </head>
@@ -110,18 +119,17 @@
   <!-- Header -->
   <header>
     <div class="logo" onclick="window.location.href='home.html'">IT'aawun</div>
-    
   </header>
 
   <!-- Profile Card -->
   <div class="profile-card">
-    <img src="download.jpg" alt="Profile Picture">
+    <img src="ipey.jpeg" alt="Profile Picture">
     <h2>Username123</h2>
     <div class="info">
       <p><strong>Email:</strong> user@student.com</p>
       <p><strong>Password:</strong> ********</p>
     </div>
-    <button class="logout-btn" onclick="window.location.href='login.html'">Logout</button>
+    <button class="logout-btn" onclick="window.location.href='index.html'">Logout</button>
   </div>
 
   <!-- Footer -->
