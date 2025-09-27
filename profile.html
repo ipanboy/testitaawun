@@ -4,7 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Profile - IT'aawun</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+
+   .back-button {
+    padding:10px 40px;
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+    font-weight:bold;
+    color:#001f3f;
+    font-size:16px;
+  }
+  .back-button i { margin-right:8px; } 
+  .back-button:hover { color:#004f80; }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -12,7 +25,7 @@
       display: flex;
       flex-direction: column;
       /* Animated Gradient Background */
-      background: linear-gradient(-45deg, #001f3f, #D3D3D3, #FFFFFF, #00aaff);
+      background: linear-gradient(-45deg, #00008B,#ffffff,#3F00FF);
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
     }
@@ -120,6 +133,10 @@
   <header>
     <div class="logo" onclick="window.location.href='home.html'">IT'aawun</div>
   </header>
+
+  <div class="back-button" onclick="window.location.href='home.html'">
+  <i class="fa-solid fa-arrow-left"></i> Back
+</div>
 
   <!-- Profile Card -->
   <div class="profile-card">

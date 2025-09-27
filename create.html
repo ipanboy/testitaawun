@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create Service - IT'aawun</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   /* Body & Gradient Background */
   body {
@@ -12,7 +13,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(-45deg, #001f3f, #D3D3D3, #FFFFFF, #00aaff);
+    background: linear-gradient(-45deg, #00008B,#ffffff,#3F00FF);
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
     color: #333;
@@ -22,6 +23,18 @@
     50% {background-position: 100% 50%;}
     100% {background-position: 0% 50%;}
   }
+
+  .back-button {
+    padding:10px 40px;
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+    font-weight:bold;
+    color:#001f3f;
+    font-size:16px;
+  }
+  .back-button i { margin-right:8px; } 
+  .back-button:hover { color:#004f80; }
 
   /* Header */
   header {
@@ -95,7 +108,6 @@
 
 <header>
   <div class="logo" onclick="window.location.href='home.html'">IT'aawun</div>
-  
   <div class="profile-container">
     <img src="ipey.jpeg" alt="Profile" class="profile-pic" onclick="toggleDropdown()">
     <div class="dropdown" id="dropdownMenu">
@@ -105,6 +117,10 @@
     </div>
   </div>
 </header>
+
+<div class="back-button" onclick="window.location.href='home.html'">
+  <i class="fa-solid fa-arrow-left"></i> Back
+</div>
 
 <div class="container">
   <h2>Create Your Service</h2>
@@ -133,6 +149,19 @@
       <option value="writing">Writing</option>
       <option value="tutoring">Tutoring</option>
       <option value="photography">Photography</option>
+    </select>
+
+    <label for="location">Location</label>
+    <input type="text" id="location" placeholder="City, Area, etc." required>
+
+    <label for="time">Time Available / Needed</label>
+    <select id="time" required>
+      <option value="">Select Time</option>
+      <option value="Mon-Fri 9am-5pm">Mon-Fri 9am-5pm</option>
+      <option value="Mon-Fri 10am-6pm">Mon-Fri 10am-6pm</option>
+      <option value="Weekends">Weekends</option>
+      <option value="Evenings">Evenings</option>
+      <option value="Flexible">Flexible</option>
     </select>
 
     <label for="contact">Email</label>
@@ -170,6 +199,8 @@ document.getElementById("serviceForm").addEventListener("submit", function(e){
   const desc = document.getElementById("desc").value;
   const price = document.getElementById("price").value;
   const category = document.getElementById("category").value;
+  const location = document.getElementById("location").value;
+  const time = document.getElementById("time").value;
   const contact = document.getElementById("contact").value;
   const whatsapp = document.getElementById("whatsapp").value;
   const telegram = document.getElementById("telegram").value;
@@ -178,7 +209,7 @@ document.getElementById("serviceForm").addEventListener("submit", function(e){
 
   let key = type === "needed" ? "neededServices" : "offeredServices";
   let services = JSON.parse(localStorage.getItem(key) || "[]");
-  services.push({title, desc, price, category, contact, whatsapp, telegram, image, type});
+  services.push({title, desc, price, category, location, time, contact, whatsapp, telegram, image, type});
   localStorage.setItem(key, JSON.stringify(services));
 
   alert(`Service (${type}) added successfully!`);

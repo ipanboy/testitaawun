@@ -1,283 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Service Needed - IT'aawun</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(-45deg, #001f3f, #D3D3D3, #FFFFFF, #00aaff);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    color: #333;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - IT'aawun</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+
+   .back-button {
+    padding:10px 40px;
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+    font-weight:bold;
+    color:#001f3f;
+    font-size:16px;
   }
-  @keyframes gradientBG {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
-  }
-  header {
-    background: rgba(0,0,0,0.2);
-    color: white;
-    padding: 15px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  header .logo { font-size:22px; font-weight:bold; cursor:pointer; }
-  .profile-container { position: relative; }
-  .profile-pic { width:40px; height:40px; border-radius:50%; cursor:pointer; border:2px solid white; }
-  .dropdown {
-    display:none; position:absolute; right:0; top:50px;
-    background:white; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.2); z-index:100;
-  }
-  .dropdown a { display:block; padding:10px; text-decoration:none; color:#333; font-size:14px; }
-  .dropdown a:hover { background:#f0f0f0; }
-  .page-title { text-align:center; padding:20px; color:#001f3f; font-size:28px; font-weight:bold; text-shadow:1px 1px 2px rgba(255,255,255,0.7); }
-  .filters, .search-bar { text-align:center; margin-bottom:20px; }
-  .filters select, .search-bar input { padding:10px; font-size:16px; border-radius:8px; border:1px solid #ccc; margin:0 5px; }
-  .search-bar input { width:60%; }
-  .search-bar button { padding:12px 20px; border:none; border-radius:8px; background:#001f3f; color:white; font-size:16px; cursor:pointer; }
-  .search-bar button:hover { background:#004f80; }
-  .request-list { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; padding:20px; }
-  .request-card {
-    background: rgba(255,255,255,0.95);
-    width:220px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.2);
-    overflow:hidden; transition:.3s; display:flex; flex-direction:column;
-  }
-  .request-card:hover { transform:scale(1.05); }
-  .request-card img { width:100%; height:120px; object-fit:cover; }
-  .request-card .content { padding:15px; display:flex; flex-direction:column; flex:1; }
-  .request-card h3 { font-size:18px; margin:5px 0; color:#001f3f; }
-  .request-card p.desc { font-size:14px; margin:5px 0; color:#555; overflow:hidden; max-height:40px; transition:max-height 0.3s; }
-  .request-card p.desc.expanded { max-height:200px; }
-  .request-card .moreBtn { background:none; border:none; color:grey; font-weight:bold; cursor:pointer; padding:0; margin:5px 0; text-align:left; }
-  .request-card span { font-weight:bold; color:#333; }
-  .request-card button.offerBtn {
-    margin-top:auto; padding:10px 15px; border:none; border-radius:6px; background:#001f3f; color:white; cursor:pointer;
-    width:100%; font-weight:bold; font-size:15px; transition:.3s; display:flex; align-items:center; justify-content:center; gap:6px;
-  }
-  .request-card button.offerBtn:hover { background:#004f80; }
-  #requestModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:200; }
-  #requestModal .modal-content {
-    background:white; max-width:500px; margin:50px auto; padding:25px; border-radius:12px; position:relative; text-align:center;
-  }
-  #requestModal .close { position:absolute; top:10px; right:15px; font-size:28px; cursor:pointer; }
-  #requestModal .contact-btn {
-    padding:12px 20px; margin:10px 5px; border:none; border-radius:8px; color:white; font-size:16px; cursor:pointer;
-    font-weight:bold; display:inline-flex; align-items:center; gap:8px; transition:.3s;
-  }
-  #emailBtn { background:#ff6b6b; } #emailBtn:hover { background:#ff4c4c; }
-  #whatsappBtn { background:#25d366; } #whatsappBtn:hover { background:#1ebe57; }
-  #telegramBtn { background:#0088cc; } #telegramBtn:hover { background:#0077b3; }
-  footer { background: rgba(0,0,0,0.2); color:white; text-align:center; padding:15px; margin-top:20px; }
-  @media(max-width:600px){
-    .search-bar input { width:80%; }
-    .request-list { gap:15px; justify-content:center; }
-  }
-</style>
+  .back-button i { margin-right:8px; } 
+  .back-button:hover { color:#004f80; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      /* Animated Gradient Background */
+      background: linear-gradient(-45deg, #00008B,#ffffff,#3F00FF);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      background: rgba(0,0,0,0.2);
+      color: white;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header .logo {
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Profile Section */
+    .profile-card {
+      background: rgba(255,255,255,0.95);
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .profile-card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #001f3f;
+      margin-bottom: 15px;
+    }
+
+    .profile-card h2 {
+      margin: 10px 0;
+      color: #001f3f;
+    }
+
+    .info {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .info p {
+      font-size: 16px;
+      margin: 8px 0;
+    }
+
+    .info strong {
+      color: #001f3f;
+    }
+
+    /* Logout Button */
+    .logout-btn {
+      margin-top: 25px;
+      padding: 10px 20px;
+      background: #001f3f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #004f80;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      background: rgba(0,0,0,0.2);
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .profile-card { margin: 30px 20px; padding: 20px; }
+      .profile-card img { width: 100px; height: 100px; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <div class="logo" onclick="window.location.href='home.html'">IT'aawun</div>
-  <div class="profile-container">
-    <img src="ipey.jpeg" class="profile-pic" onclick="toggleDropdown()">
-    <div class="dropdown" id="dropdownMenu">
-      <a href="profile.html">My Profile</a>
-      <a href="#">Settings</a>
-      <a href="index.html">Logout</a>
-    </div>
-  </div>
-</header>
+  <!-- Header -->
+  <header>
+    <div class="logo" onclick="window.location.href='home.html'">IT'aawun</div>
+  </header>
 
-<div class="page-title">Service Needed</div>
-
-<div class="filters">
-  <select id="categoryFilter">
-    <option value="all">All Categories</option>
-    <option value="design">Design</option>
-    <option value="coding">Coding</option>
-    <option value="writing">Writing</option>
-    <option value="tutoring">Tutoring</option>
-    <option value="photography">Photography</option>
-  </select>
-  <select id="budgetFilter">
-    <option value="all">All Budgets</option>
-    <option value="under20">Under RM20</option>
-    <option value="20to50">RM20 - RM50</option>
-    <option value="above50">Above RM50</option>
-  </select>
+  <div class="back-button" onclick="window.location.href='home.html'">
+  <i class="fa-solid fa-arrow-left"></i> Back
 </div>
 
-<div class="search-bar">
-  <input type="text" id="searchInput" placeholder="Search requests...">
-  <button onclick="searchRequests()">Search</button>
-</div>
-
-<div class="request-list">
-
-  <!-- Card 1 -->
-  <div class="request-card" data-category="writing" data-budget="25">
-    <img src="https://via.placeholder.com/220x120">
-    <div class="content">
-      <h3>Essay Help</h3>
-      <p class="desc">I need someone to write an essay about AI with proper research and citations.</p>
-      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
-      <span>RM25</span>
-      <button class="offerBtn" onclick="openModal('Essay Help','I need someone to write an essay about AI.','RM25','student1@student.com','student1telegram','60123456789')">Offer Service</button>
+  <!-- Profile Card -->
+  <div class="profile-card">
+    <img src="ipey.jpeg" alt="Profile Picture">
+    <h2>Username123</h2>
+    <div class="info">
+      <p><strong>Email:</strong> user@student.com</p>
+      <p><strong>Password:</strong> ********</p>
     </div>
+    <button class="logout-btn" onclick="window.location.href='index.html'">Logout</button>
   </div>
 
-  <!-- Card 2 -->
-  <div class="request-card" data-category="design" data-budget="40">
-    <img src="https://via.placeholder.com/220x120">
-    <div class="content">
-      <h3>Poster Design</h3>
-      <p class="desc">Looking for a poster for event promo, with modern graphics and appealing design.</p>
-      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
-      <span>RM40</span>
-      <button class="offerBtn" onclick="openModal('Poster Design','Looking for a poster for event promo.','RM40','student2@student.com','student2telegram','60111222333')">Offer Service</button>
-    </div>
-  </div>
-
-  <!-- Card 3 -->
-  <div class="request-card" data-category="coding" data-budget="60">
-    <img src="https://via.placeholder.com/220x120">
-    <div class="content">
-      <h3>Portfolio Website</h3>
-      <p class="desc">Need a simple responsive portfolio site with 3-5 pages to showcase projects.</p>
-      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
-      <span>RM60</span>
-      <button class="offerBtn" onclick="openModal('Portfolio Website','Need a simple responsive portfolio site.','RM60','student3@student.com','student3telegram','60112223344')">Offer Service</button>
-    </div>
-  </div>
-
-  <!-- Card 4 -->
-  <div class="request-card" data-category="tutoring" data-budget="30">
-    <img src="https://via.placeholder.com/220x120">
-    <div class="content">
-      <h3>Math Tutoring</h3>
-      <p class="desc">Need guidance on calculus topics including derivatives, integrals, and limits.</p>
-      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
-      <span>RM30</span>
-      <button class="offerBtn" onclick="openModal('Math Tutoring','Need guidance on calculus topics.','RM30','student4@student.com','student4telegram','60115554444')">Offer Service</button>
-    </div>
-  </div>
-
-  <!-- Card 5 -->
-  <div class="request-card" data-category="photography" data-budget="50">
-    <img src="https://via.placeholder.com/220x120">
-    <div class="content">
-      <h3>Event Photography</h3>
-      <p class="desc">Looking for someone to capture photos for a small birthday event. 2 hours only.</p>
-      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
-      <span>RM50</span>
-      <button class="offerBtn" onclick="openModal('Event Photography','Looking for photos at birthday event.','RM50','student5@student.com','student5telegram','60113334444')">Offer Service</button>
-    </div>
-  </div>
-
-  <!-- Card 6 -->
-  <div class="request-card" data-category="coding" data-budget="80">
-    <img src="https://via.placeholder.com/220x120">
-    <div class="content">
-      <h3>Mobile App Bug Fix</h3>
-      <p class="desc">Need someone to debug a Flutter mobile app. Issues with login and API integration.</p>
-      <button class="moreBtn" onclick="toggleDesc(this)">More</button>
-      <span>RM80</span>
-      <button class="offerBtn" onclick="openModal('Mobile App Bug Fix','Need someone to debug Flutter app.','RM80','student6@student.com','student6telegram','60118889999')">Offer Service</button>
-    </div>
-  </div>
-
-</div>
-
-<!-- Modal -->
-<div id="requestModal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">×</span>
-    <h2 id="modalTitle" style="color:#001f3f;"></h2>
-    <p id="modalDesc"></p>
-    <p><strong>Budget:</strong> <span id="modalBudget"></span></p>
-    <div>
-      <button id="emailBtn" class="contact-btn"><i class="fa-solid fa-envelope"></i>Email</button>
-      <button id="whatsappBtn" class="contact-btn"><i class="fa-brands fa-whatsapp"></i>WhatsApp</button>
-      <button id="telegramBtn" class="contact-btn"><i class="fa-brands fa-telegram"></i>Telegram</button>
-    </div>
-  </div>
-</div>
-
-<footer>
-  <p>© 2025 IT'aawun. All rights reserved.</p>
-</footer>
-
-<script>
-  // Profile dropdown
-  function toggleDropdown(){
-    const menu = document.getElementById('dropdownMenu');
-    menu.style.display = (menu.style.display==='block')?'none':'block';
-  }
-  window.onclick = function(e){
-    if(!e.target.matches('.profile-pic')){
-      document.getElementById('dropdownMenu').style.display='none';
-    }
-  }
-
-  // Toggle description expand
-  function toggleDesc(btn){
-    const desc = btn.previousElementSibling;
-    desc.classList.toggle('expanded');
-    btn.textContent = desc.classList.contains('expanded')?'Less':'More';
-  }
-
-  // Modal
-  const modal = document.getElementById('requestModal');
-  function openModal(title, desc, budget, email, telegram, whatsapp){
-    document.getElementById('modalTitle').textContent = title;
-    document.getElementById('modalDesc').textContent = desc;
-    document.getElementById('modalBudget').textContent = budget;
-    document.getElementById('emailBtn').onclick = ()=>{window.location.href=`mailto:${email}`};
-    document.getElementById('telegramBtn').onclick = ()=>{window.open(`https://t.me/${telegram}`)};
-    document.getElementById('whatsappBtn').onclick = ()=>{window.open(`https://wa.me/${whatsapp}`)};
-    modal.style.display='block';
-  }
-  function closeModal(){ modal.style.display='none'; }
-
-  // Search & Filter
-  function searchRequests(){
-    const keyword = document.getElementById('searchInput').value.toLowerCase();
-    const category = document.getElementById('categoryFilter').value;
-    const budget = document.getElementById('budgetFilter').value;
-    const cards = document.querySelectorAll('.request-card');
-    cards.forEach(card=>{
-      const title = card.querySelector('h3').textContent.toLowerCase();
-      const desc = card.querySelector('p.desc').textContent.toLowerCase();
-      const cardCategory = card.dataset.category;
-      const cardBudget = parseInt(card.dataset.budget);
-
-      let budgetPass = false;
-      if(budget==='all') budgetPass=true;
-      else if(budget==='under20' && cardBudget<20) budgetPass=true;
-      else if(budget==='20to50' && cardBudget>=20 && cardBudget<=50) budgetPass=true;
-      else if(budget==='above50' && cardBudget>50) budgetPass=true;
-
-      let categoryPass = (category==='all')?true:(cardCategory===category);
-      let searchPass = title.includes(keyword) || desc.includes(keyword);
-
-      card.style.display = (budgetPass && categoryPass && searchPass)?'flex':'none';
-    });
-  }
-
-  // Real-time search/filter
-  document.getElementById('searchInput').addEventListener('input', searchRequests);
-  document.getElementById('categoryFilter').addEventListener('change', searchRequests);
-  document.getElementById('budgetFilter').addEventListener('change', searchRequests);
-</script>
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 IT'aawun | Student Freelance Collaboration</p>
+  </footer>
 
 </body>
 </html>
